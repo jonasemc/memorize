@@ -8,16 +8,59 @@
 import SwiftUI
 
 struct ContentView: View {
+    var emojis = ["🏎", "🛵", "🚀", "🛳"]
+    
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 20)
-                .stroke(lineWidth: 3)
-            Text("Hello, world")
+        HStack{
+            ForEach(emojis, id: \.self)  { emoji in
+                CardView(content: emoji)
+            }
         }
         .padding(.horizontal)
         .foregroundColor(.red)
     }
 }
+
+
+struct CardView: View{
+    var content: String
+    @State var faceParaCima: Bool = true
+    
+    var body: some View{
+        ZStack {
+            let shape = RoundedRectangle(cornerRadius: 20)
+            if faceParaCima{
+                shape.fill().foregroundColor(.white)
+                shape.stroke(lineWidth: 3).fill()
+                Text(content).font(.largeTitle)
+            } else{
+                shape.fill()
+            }
+        }
+        .onTapGesture {
+            faceParaCima = !faceParaCima
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -29,6 +72,9 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .preferredColorScheme(.light)
+        ContentView()
+            .preferredColorScheme(/*@START_MENU_TOKEN@*/.dark/*@END_MENU_TOKEN@*/)
     }
 }
 
