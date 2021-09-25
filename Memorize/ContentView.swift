@@ -8,18 +8,48 @@
 import SwiftUI
 
 struct ContentView: View {
-    var emojis = ["🏎", "🛵", "🚀", "🛳"]
+    var emojis = ["🏎", "🛵", "🚀", "🛳", "🚕", "🚙", "🚓", "🚑", "🚛", "🚜", "🚡", "🚠", "🚅", "🚂", "✈️", "🛸", "🏍", "🚁", "🛶", "⛵️", "🚊", "🛻", "🛴", "🚲"]
+    
+    @State var emojiCount = 6
     
     var body: some View {
-        HStack{
-            ForEach(emojis, id: \.self)  { emoji in
-                CardView(content: emoji)
+        VStack{
+            HStack{
+                ForEach(emojis[0..<emojiCount], id: \.self)  { emoji in
+                    CardView(content: emoji)
+                }
             }
+            HStack{
+                remover
+                Spacer()
+                adicionar
+            }
+            .padding(.horizontal)
         }
         .padding(.horizontal)
         .foregroundColor(.red)
     }
+    var remover: some View{
+        Button(action: {
+            emojiCount -= 1
+        }, label: {
+            VStack{
+                Text("remover")
+            }
+        })
+    }
+    var adicionar: some View{
+        Button(action: {
+            emojiCount += 1
+        }, label: {
+            VStack{
+                Text("adicionar")
+            }
+        })
+    }
 }
+
+
 
 
 struct CardView: View{
