@@ -14,18 +14,20 @@ struct MemoryGame<CardContent>{
         
     }
     
-    init(numeroDeParesCartas: Int){
+    init (numeroDeParesCartas: Int, createCardContent: (Int) -> CardContent) {
         cards = Array<Card>()
-        //add numeroDeParesCartas x2
+
         for parIndex in 0..<numeroDeParesCartas {
-            cards.append(Card(faceParaCima: false, combinacao: false, content: <#T##CardContent#>))
-            cards.append(Card(faceParaCima: false, combinacao: false, content: <#T##CardContent#>))
+            let content = createCardContent(parIndex)
+            cards.append(Card(content: content, id: parIndex*2))
+            cards.append(Card(content: content, id: parIndex*2+1))
         }
     }
     
-    struct Card{
-        var faceParaCima: Bool
-        var combinacao: Bool
+    struct Card: Identifiable {
+        var faceParaCima: Bool = false
+        var combinacao: Bool = false
         var content: CardContent
+        var id: Int
     }
 }
